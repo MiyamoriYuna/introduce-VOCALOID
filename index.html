@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>VOCALOID — 声から生まれる、無限の物語。</title>
+
+  <meta
+    name="description"
+    content="VOCALOIDと、私が好きなボカロPたちを紹介するランディングページ。DECO*27、しゃいと、悪ノPをピックアップ。"
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Outfit:wght@400;500;600;700;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #070a12;
+      --bg-soft: #0d1220;
+      --text: #f5f7ff;
+      --muted: #9ca7bb;
+      --line: rgba(255,255,255,.1);
+
+      --miku: #39e6c4;
+      --miku-blue: #24c9dc;
+      --pink: #ff4f9a;
+      --purple: #8c65ff;
+      --yellow: #ffd84a;
+      --red: #ff3c56;
+
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(57,230,196,.08), transparent 30%),
+        radial-gradient(circle at 90% 15%, rgba(140,101,255,.08), transparent 28%),
+        var(--bg);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 72px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      background: rgba(7,10,18,.72);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    .logo {
+      font-family: "Outfit", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .logo span {
+      color: var(--miku);
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+      font-size: .82rem;
+      color: #b9c1d2;
+    }
+
+    nav a {
+      transition: color .25s ease;
+    }
+
+    nav a:hover {
+      color: var(--miku);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 100vh;
+      padding: 150px 5vw 70px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      background: rgba(57,230,196,.09);
+      filter: blur(80px);
+      top: -250px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 1000px;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 15px;
+      border: 1px solid rgba(57,230,196,.3);
+      border-radius: 999px;
+      color: var(--miku);
+      background: rgba(57,230,196,.05);
+      font-size: .75rem;
+      letter-spacing: .14em;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 {
+      font-family: "Outfit", "Noto Sans JP", sans-serif;
+      font-size: clamp(4rem, 11vw, 9.5rem);
+      line-height: .85;
+      letter-spacing: -.07em;
+      font-weight: 900;
+      margin-bottom: 35px;
+    }
+
+    .hero h1 .accent {
+      color: var(--miku);
+      text-shadow:
+        0 0 30px rgba(57,230,196,.35),
+        0 0 80px rgba(57,230,196,.12);
+    }
+
+    .hero-description {
+      max-width: 650px;
+      margin: auto;
+      color: #adb7ca;
+      font-size: 1rem;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #7c879b;
+      font-size: .7rem;
+      letter-spacing: .2em;
+    }
+
+    .scroll-indicator::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 42px;
+      margin: 8px auto 0;
+      background: linear-gradient(var(--miku), transparent);
+    }
+
+    /* =========================
+       CHARACTER RAIL
+    ========================= */
+
+    .character-section {
+      padding: 40px 5vw 130px;
+      position: relative;
+    }
+
+    .section-label {
+      text-align: center;
+      color: #667187;
+      font-family: "Outfit", sans-serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      margin-bottom: 28px;
+    }
+
+    .character-grid {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 12px;
+    }
+
+    .character {
+      min-width: 0;
+      text-align: center;
+      padding: 15px 5px 17px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.025);
+      border-radius: 18px;
+      transition: .3s ease;
+    }
+
+    .character:hover {
+      transform: translateY(-7px);
+      border-color: var(--char);
+      background: rgba(255,255,255,.05);
+    }
+
+    .avatar {
+      width: 66px;
+      height: 66px;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #071018;
+      font-family: "Outfit", sans-serif;
+      font-size: .8rem;
+      font-weight: 900;
+      background:
+        radial-gradient(circle at 30% 25%, white, transparent 8%),
+        var(--char);
+      box-shadow: 0 8px 25px color-mix(in srgb, var(--char), transparent 70%);
+    }
+
+    .character-name {
+      font-size: .72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .character-type {
+      margin-top: 2px;
+      color: #68748a;
+      font-size: .58rem;
+    }
+
+    /* Character colors */
+    .miku { --char: #39e6c4; }
+    .rin { --char: #ffd83d; }
+    .len { --char: #ffe86a; }
+    .luka { --char: #ef79bc; }
+    .teto { --char: #ff6d8c; }
+    .gumi { --char: #a8e75d; }
+    .kaito { --char: #36a7e8; }
+    .meiko { --char: #e94443; }
+
+    /* =========================
+       VOCALOID INTRO
+    ========================= */
+
+    .intro {
+      max-width: 1100px;
+      margin: auto;
+      padding: 120px 5vw;
+      scroll-margin-top: 70px;
+    }
+
+    .intro-header {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 70px;
+      align-items: end;
+      margin-bottom: 65px;
+    }
+
+    .section-number {
+      font-family: "Outfit", sans-serif;
+      font-size: .8rem;
+      color: var(--miku);
+      letter-spacing: .2em;
+    }
+
+    .intro h2 {
+      font-size: clamp(2.4rem, 6vw, 5.5rem);
+      line-height: 1;
+      letter-spacing: -.06em;
+      margin-top: 14px;
+    }
+
+    .intro-header p {
+      color: #aab3c5;
+      font-size: .95rem;
+    }
+
+    .definition {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .definition-item {
+      min-height: 270px;
+      padding: 38px;
+      background: #0c111d;
+    }
+
+    .definition-item:first-child {
+      background:
+        linear-gradient(135deg, rgba(57,230,196,.12), transparent),
+        #0c111d;
+    }
+
+    .definition-item h3 {
+      font-family: "Outfit", sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+    }
+
+    .definition-item p {
+      color: #9da8ba;
+      font-size: .9rem;
+    }
+
+    .definition-item strong {
+      color: var(--miku);
+    }
+
+    .note {
+      margin-top: 18px;
+      color: #69758b;
+      font-size: .72rem;
+    }
+
+    /* =========================
+       FAVORITES
+    ========================= */
+
+    .favorites {
+      padding: 120px 5vw 160px;
+      position: relative;
+      scroll-margin-top: 70px;
+    }
+
+    .favorites-inner {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .favorites-heading {
+      margin-bottom: 70px;
+    }
+
+    .favorites-heading h2 {
+      font-size: clamp(2.7rem, 7vw, 6rem);
+      line-height: .95;
+      letter-spacing: -.06em;
+      margin-top: 15px;
+    }
+
+    .favorites-heading p {
+      max-width: 570px;
+      color: #8e99ad;
+      margin-top: 25px;
+    }
+
+    /* =========================
+       PRODUCER CARD
+    ========================= */
+
+    .producer-card {
+      position: relative;
+      min-height: 520px;
+      margin-bottom: 55px;
+      border-radius: 38px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.1);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      isolation: isolate;
+      transition: transform .45s ease, box-shadow .45s ease;
+    }
+
+    .producer-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .producer-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+    }
+
+    .producer-card::after {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: .25;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* DECO*27 */
+    .deco {
+      background:
+        linear-gradient(110deg, rgba(13,25,34,.94), rgba(7,24,27,.84)),
+        #07151b;
+      box-shadow: 0 30px 100px rgba(57,230,196,.07);
+    }
+
+    .deco::after {
+      background: var(--miku);
+      top: -180px;
+      right: -180px;
+    }
+
+    /* しゃいと */
+    .shaito {
+      background:
+        linear-gradient(110deg, rgba(15,13,24,.96), rgba(22,17,31,.91)),
+        #100d19;
+      box-shadow: 0 30px 100px rgba(104,76,155,.08);
+    }
+
+    .shaito::after {
+      background: #724d92;
+      bottom: -220px;
+      right: -160px;
+    }
+
+    /* 悪ノP */
+    .akuno {
+      background:
+        linear-gradient(110deg, rgba(42,11,17,.94), rgba(67,15,20,.85)),
+        #25090f;
+      box-shadow: 0 30px 100px rgba(255,50,65,.1);
+    }
+
+    .akuno::after {
+      background: #ffb321;
+      top: -190px;
+      right: -130px;
+    }
+
+    .card-content {
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .producer-index {
+      font-family: "Outfit", sans-serif;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      color: var(--card-accent);
+      margin-bottom: 22px;
+    }
+
+    .deco { --card-accent: var(--miku); }
+    .shaito { --card-accent: #a985d7; }
+    .akuno { --card-accent: #ffcc55; }
+
+    .card-content h3 {
+      font-family: "Outfit", sans-serif;
+      font-size: clamp(2.6rem, 5vw, 5rem);
+      line-height: .95;
+      letter-spacing: -.06em;
+      margin-bottom: 12px;
+    }
+
+    .producer-subtitle {
+      color: var(--card-accent);
+      font-size: .85rem;
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+
+    .producer-description {
+      max-width: 520px;
+      color: #b3bdce;
+      font-size: .92rem;
+      margin-bottom: 35px;
+    }
+
+    .keyword {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 30px;
+    }
+
+    .keyword span {
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.11);
+      color: #b5bfd0;
+      background: rgba(255,255,255,.035);
+      font-size: .7rem;
+    }
+
+    .songs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .song-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 15px;
+      border-radius: 999px;
+      background: var(--card-accent);
+      color: #081014;
+      font-size: .74rem;
+      font-weight: 900;
+      transition: .25s ease;
+    }
+
+    .song-link:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.12);
+      box-shadow: 0 8px 25px rgba(255,255,255,.12);
+    }
+
+    .song-link::before {
+      content: "▶";
+      font-size: .55rem;
+    }
+
+    /* =========================
+       VISUAL SIDE
+    ========================= */
+
+    .card-visual {
+      position: relative;
+      min-height: 520px;
+      overflow: hidden;
+    }
+
+    .visual-circle {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .visual-circle::before,
+    .visual-circle::after {
+      content: "";
+      position: absolute;
+      inset: 25px;
+      border-radius: 50%;
+      border: 1px dashed rgba(255,255,255,.13);
+    }
+
+    .visual-circle::after {
+      inset: 70px;
+      border-style: solid;
+      opacity: .5;
+    }
+
+    .visual-word {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-family: "Outfit", sans-serif;
+      font-size: clamp(4rem, 8vw, 8rem);
+      font-weight: 900;
+      letter-spacing: -.1em;
+      white-space: nowrap;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,.4);
+    }
+
+    .deco .visual-word {
+      color: rgba(57,230,196,.09);
+      -webkit-text-stroke-color: rgba(57,230,196,.45);
+    }
+
+    .shaito .visual-word {
+      color: rgba(169,133,215,.06);
+      -webkit-text-stroke-color: rgba(169,133,215,.4);
+    }
+
+    .akuno .visual-word {
+      color: rgba(255,75,60,.07);
+      -webkit-text-stroke-color: rgba(255,190,65,.5);
+    }
+
+    .visual-symbol {
+      position: absolute;
+      font-family: "Outfit", sans-serif;
+      font-size: 7rem;
+      font-weight: 900;
+      opacity: .8;
+    }
+
+    .deco .visual-symbol {
+      color: var(--miku);
+      right: 12%;
+      top: 15%;
+    }
+
+    .shaito .visual-symbol {
+      color: #aa7bcb;
+      right: 15%;
+      bottom: 15%;
+    }
+
+    .akuno .visual-symbol {
+      color: #ffca47;
+      right: 12%;
+      top: 12%;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 70px 5vw;
+      border-top: 1px solid var(--line);
+      color: #596478;
+      text-align: center;
+      font-size: .7rem;
+    }
+
+    footer strong {
+      color: #8d98ac;
+    }
+
+    /* =========================
+       ANIMATION
+    ========================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 900px) {
+      nav {
+        display: none;
+      }
+
+      .character-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .intro-header {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .producer-card {
+        grid-template-columns: 1fr;
+      }
+
+      .card-visual {
+        min-height: 300px;
+        order: -1;
+      }
+
+      .visual-circle {
+        width: 260px;
+        height: 260px;
+      }
+
+      .card-content {
+        padding: 40px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 120px;
+      }
+
+      .hero h1 {
+        font-size: 4.7rem;
+      }
+
+      .character-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .definition {
+        grid-template-columns: 1fr;
+      }
+
+      .definition-item {
+        min-height: auto;
+      }
+
+      .producer-card {
+        border-radius: 25px;
+      }
+
+      .card-content {
+        padding: 32px 25px 40px;
+      }
+
+      .card-visual {
+        min-height: 250px;
+      }
+
+      .visual-circle {
+        width: 210px;
+        height: 210px;
+      }
+
+      .visual-word {
+        font-size: 4.2rem;
+      }
+
+      .visual-symbol {
+        font-size: 4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       HEADER
+  ========================= -->
+
+  <header>
+    <a href="#" class="logo">VOCAL<span>OID</span>.</a>
+
+    <nav>
+      <a href="#about">VOCALOIDとは</a>
+      <a href="#favorites">MY FAVORITES</a>
+    </nav>
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-content reveal">
+
+        <div class="eyebrow">
+          MUSIC / SYNTHETIC VOICE / CREATION
+        </div>
+
+        <h1>
+          <span class="accent">VOICE</span><br>
+          OF CREATION
+        </h1>
+
+        <p class="hero-description">
+          人の声ではない。<br>
+          だからこそ、誰にも作れなかった音楽が生まれる。<br>
+          ここでは、私が好きな「ボカロ」の世界を紹介します。
+        </p>
+
+      </div>
+
+      <div class="scroll-indicator">
+        SCROLL
+      </div>
+    </section>
+
+
+    <!-- =========================
+         CHARACTER LINEUP
+    ========================= -->
+
+    <section class="character-section">
+
+      <div class="section-label">
+        VOCAL SYNTHESIS CHARACTERS
+      </div>
+
+      <div class="character-grid">
+
+        <div class="character miku">
+          <div class="avatar">MIKU</div>
+          <div class="character-name">初音ミク</div>
+          <div class="character-type">HATSUNE MIKU</div>
+        </div>
+
+        <div class="character rin">
+          <div class="avatar">RIN</div>
+          <div class="character-name">鏡音リン</div>
+          <div class="character-type">KAGAMINE RIN</div>
+        </div>
+
+        <div class="character len">
+          <div class="avatar">LEN</div>
+          <div class="character-name">鏡音レン</div>
+          <div class="character-type">KAGAMINE LEN</div>
+        </div>
+
+        <div class="character luka">
+          <div class="avatar">LUKA</div>
+          <div class="character-name">巡音ルカ</div>
+          <div class="character-type">MEGURINE LUKA</div>
+        </div>
+
+        <div class="character teto">
+          <div class="avatar">TETO</div>
+          <div class="character-name">重音テト</div>
+          <div class="character-type">KASANE TETO</div>
+        </div>
+
+        <div class="character gumi">
+          <div class="avatar">GUMI</div>
+          <div class="character-name">GUMI</div>
+          <div class="character-type">GUMI</div>
+        </div>
+
+        <div class="character kaito">
+          <div class="avatar">KAITO</div>
+          <div class="character-name">KAITO</div>
+          <div class="character-type">KAITO</div>
+        </div>
+
+        <div class="character meiko">
+          <div class="avatar">MEIKO</div>
+          <div class="character-name">MEIKO</div>
+          <div class="character-type">MEIKO</div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =========================
+         ABOUT VOCALOID
+    ========================= -->
+
+    <section class="intro reveal" id="about">
+
+      <div class="intro-header">
+
+        <div>
+          <div class="section-number">01 / ABOUT VOCALOID</div>
+          <h2>ボカロ<br>について。</h2>
+        </div>
+
+        <p>
+          「ボカロ」は、単なる音楽ジャンルの名前ではありません。
+          歌声を合成する技術と、そこから広がった創作文化がひとつになって、
+          独自の音楽シーンを作り上げています。
+        </p>
+
+      </div>
+
+      <div class="definition">
+
+        <article class="definition-item">
+          <h3>VOCALOIDとは？</h3>
+
+          <p>
+            VOCALOIDは、歌詞とメロディーを入力することで、
+            コンピューター上で歌声を作り出すことができる
+            <strong>歌声合成技術・ソフトウェア</strong>です。
+          </p>
+
+          <p class="note">
+            ※「VOCALOID」はヤマハ株式会社の商標または登録商標です。
+          </p>
+        </article>
+
+        <article class="definition-item">
+          <h3>「ボカロ文化」の面白さ</h3>
+
+          <p>
+            ボカロの大きな特徴は、作曲、作詞、イラスト、映像などを
+            個人のクリエイターが自由に組み合わせ、
+            インターネット上で作品を発表できること。
+            一人ひとりの解釈から、まったく違う世界が生まれます。
+          </p>
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         FAVORITE PRODUCERS
+    ========================= -->
+
+    <section class="favorites" id="favorites">
+
+      <div class="favorites-inner">
+
+        <div class="favorites-heading reveal">
+          <div class="section-number">02 / MY FAVORITES</div>
+
+          <h2>
+            私が好きな<br>
+            ボカロP。
+          </h2>
+
+          <p>
+            同じ「ボカロ」という括りの中でも、
+            作る人によって音楽の表情はまったく違います。
+            ここでは
